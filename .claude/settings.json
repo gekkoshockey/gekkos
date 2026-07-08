@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(which chromium-cli 2>/dev/null && echo FOUND || echo \"not on PATH\" *)",
+      "Read(//c/Users/dnadr/AppData/Local/Temp/claude/**)",
+      "Read(//c//**)"
+    ]
+  }
+}

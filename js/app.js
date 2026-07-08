@@ -2,6 +2,24 @@
    HSG GEKKOS HOCKEY — Main JavaScript
    ============================================================ */
 
+/* ---- Preparation disclaimer banner ---- */
+(function () {
+  const banner = document.createElement('div');
+  banner.className = 'disclaimer-banner';
+  banner.setAttribute('role', 'note');
+  banner.innerHTML =
+    '<span class="disclaimer-icon">🚧</span>' +
+    '<span><strong>This website is currently in preparation.</strong> ' +
+    'Content, dates, and details shown are placeholders and do not yet represent final, confirmed information.</span>';
+  document.body.insertBefore(banner, document.body.firstChild);
+
+  function syncHeight() {
+    document.documentElement.style.setProperty('--disclaimer-h', banner.offsetHeight + 'px');
+  }
+  syncHeight();
+  window.addEventListener('resize', syncHeight);
+})();
+
 /* ---- Nav scroll + mobile toggle ---- */
 (function () {
   const nav    = document.querySelector('.nav');
