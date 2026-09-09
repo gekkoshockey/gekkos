@@ -25,7 +25,7 @@
   --font-h:      'Oswald', sans-serif;
   --font-b:      'Inter', sans-serif;
   --nav-h:       72px;
-  --disclaimer-h: 68px;
+  --disclaimer-h: 0px;
   --t:           0.3s ease;
   --radius:      10px;
 }
@@ -52,20 +52,6 @@ button { cursor: pointer; }
   80%  { opacity: 0.7; }
   100% { transform: translateY(110vh) rotate(640deg) scale(0.6); opacity: 0; }
 }
-
-/* ---- Preparation disclaimer banner ---- */
-.disclaimer-banner {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 10001;
-  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
-  gap: 0.6rem 0.9rem;
-  padding: 1.15rem 1.5rem;
-  background: var(--bg-2);
-  border-bottom: 2px solid var(--border-gold);
-  text-align: center;
-  font-size: 1.05rem; line-height: 1.55; color: var(--gray-light);
-}
-.disclaimer-banner .disclaimer-icon { font-size: 1.5rem; flex-shrink: 0; }
-.disclaimer-banner strong { color: var(--gold-light); }
 
 /* ---- Navigation ---- */
 .nav {
