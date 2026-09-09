@@ -144,7 +144,7 @@ button { cursor: pointer; }
 }
 .hero-bg {
   position: absolute; inset: 0;
-  background: url('../assets/team-photo.jpg') center/cover no-repeat;
+  background: url('../assets/pictures/picture2.png') center/cover no-repeat;
   filter: brightness(0.28) saturate(0.7);
   transform: scale(1.05);
   z-index: 0;
