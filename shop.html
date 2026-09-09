@@ -376,27 +376,29 @@
                 I Want the <span style="color:var(--gold-light);">Drip</span>
               </h3>
 
-              <form id="shop-form" novalidate>
+              <form id="shop-form" action="https://formspree.io/f/mjyvjwpq" method="POST" novalidate>
+
+                <input type="hidden" name="_subject" value="New Gekkos merch interest registration" />
 
                 <div class="form-row">
                   <div class="form-group">
                     <label class="form-label" for="s-fname">First Name *</label>
-                    <input class="form-control" type="text" id="s-fname" placeholder="Gordon" required />
+                    <input class="form-control" type="text" id="s-fname" name="fname" placeholder="Gordon" required />
                   </div>
                   <div class="form-group">
                     <label class="form-label" for="s-lname">Last Name *</label>
-                    <input class="form-control" type="text" id="s-lname" placeholder="Gekko" required />
+                    <input class="form-control" type="text" id="s-lname" name="lname" placeholder="Gekko" required />
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="form-label" for="s-email">Email Address *</label>
-                  <input class="form-control" type="email" id="s-email" placeholder="g.gekko@student.unisg.ch" required />
+                  <input class="form-control" type="email" id="s-email" name="email" placeholder="g.gekko@student.unisg.ch" required />
                 </div>
 
                 <div class="form-group">
                   <label class="form-label" for="s-item">Item *</label>
-                  <select class="form-control" id="s-item" required>
+                  <select class="form-control" id="s-item" name="item" required>
                     <option value="" disabled selected>Select item</option>
                     <option>Gekkos Hoodie — Bottle Green (CHF 65 est.)</option>
                     <option>Gekkos Beanie — Bottle Green (CHF 35 est.)</option>
@@ -409,7 +411,7 @@
 
                 <div class="form-group" id="size-group">
                   <label class="form-label" for="s-size">Hoodie Size</label>
-                  <select class="form-control" id="s-size">
+                  <select class="form-control" id="s-size" name="size">
                     <option value="" disabled selected>Select size</option>
                     <option>XS</option>
                     <option>S</option>
@@ -423,7 +425,7 @@
 
                 <div class="form-group">
                   <label class="form-label" for="s-qty">Quantity</label>
-                  <select class="form-control" id="s-qty">
+                  <select class="form-control" id="s-qty" name="qty">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -432,7 +434,7 @@
                 </div>
 
                 <div class="form-check">
-                  <input type="checkbox" id="s-terms" required />
+                  <input type="checkbox" id="s-terms" name="terms" required />
                   <label for="s-terms">
                     I understand this is a non-binding interest registration. I'll receive an email when orders officially open and can decide then.
                   </label>
@@ -532,8 +534,28 @@
     });
 
     /* ---- Shop interest form ---- */
-    document.getElementById('shop-form').addEventListener('submit', function (e) {
+    document.getElementById('shop-form').addEventListener('submit', async function (e) {
       e.preventDefault();
+
+      const form = this;
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (!res.ok) throw new Error('Submission failed');
+      } catch (err) {
+        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+        alert('Something went wrong sending your registration. Please try again or email gekkoshockey@gmail.com.');
+        return;
+      }
+
       if (typeof MoneyRain !== 'undefined') {
         MoneyRain.start(130, true);
         setTimeout(() => MoneyRain.start(90, true), 1800);

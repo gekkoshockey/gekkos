@@ -408,8 +408,26 @@ if (document.body.classList.contains('page-home')) {
   const success = document.getElementById('success-msg');
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    const btn = form.querySelector('button[type="submit"]');
+    if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (!res.ok) throw new Error('Submission failed');
+    } catch (err) {
+      if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+      alert('Something went wrong sending your application. Please try again or email gekkoshockey@gmail.com.');
+      return;
+    }
 
     MoneyRain.start(120, true);
 
